@@ -10,6 +10,9 @@ const __expected_id : int = 0x1eaf1e55;
 
 ##########################################################################
 
+static var plugin_enabled : bool;
+static var already_warned_plugin_disabled : bool = false;
+
 static var gizmo_root : EditorImmediateGizmos = null;
 static var gizmo_material_line_2d : ShaderMaterial = preload("res://addons/immediate_gizmos/materials/immediate_gizmos_line_2d.tres");
 static var gizmo_material_line_3d : ShaderMaterial = preload("res://addons/immediate_gizmos/materials/immediate_gizmos_line_3d.tres");
@@ -25,6 +28,13 @@ static var draw_font : Font = ThemeDB.fallback_font;
 static var draw_font_size : int = 20;
 static var draw_font_max_width : int = 512;
 static var draw_required_selection : Node = null;
+
+static func is_plugin_enabled() -> bool:
+	if !plugin_enabled && !already_warned_plugin_disabled:
+		push_warning("the ImmediateGizmos plugin is present for this project but not enabled! No gizmo will be drawn until it is enabled (Project > Project settings > Plugins).\n" + \
+			"This warning appears only for the first call to the plugin while it is disabled. To avoid spamming it will not reappear before you restart your project.");
+		already_warned_plugin_disabled = true;
+	return plugin_enabled
 
 static func is_required_selection_met() -> bool:
 	if (draw_required_selection == null): 

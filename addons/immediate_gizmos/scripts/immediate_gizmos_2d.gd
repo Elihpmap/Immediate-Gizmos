@@ -20,28 +20,34 @@ static func reset():
 ##########################################################################
 
 static func line(from : Vector2, to : Vector2, color : Color = EditorImmediateGizmos.gizmo_default_color) -> void:
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	EditorImmediateGizmos.draw_line_2d(from, to);
 	EditorImmediateGizmos.end_draw_2d(color);
 	
 static func line_strip(points : Array[Vector2], color : Color = EditorImmediateGizmos.gizmo_default_color) -> void:
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	EditorImmediateGizmos.points_2d.append_array(points);
 	EditorImmediateGizmos.end_draw_2d(color);
 	
 static func line_polygon(points : Array[Vector2], color : Color = EditorImmediateGizmos.gizmo_default_color) -> void:
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	EditorImmediateGizmos.points_2d.append_array(points);
 	if (points.size() <= 0): return;
 	EditorImmediateGizmos.draw_point_2d(points[0])
 	EditorImmediateGizmos.end_draw_2d(color);
 	
 static func line_arc(center : Vector2, startPoint : Vector2, radians : float, color : Color = EditorImmediateGizmos.gizmo_default_color) -> void:
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	EditorImmediateGizmos.draw_arc_2d(center, startPoint, radians);
 	EditorImmediateGizmos.end_draw_2d(color);
 
 static func line_circle(center : Vector2, radius : float, color : Color = EditorImmediateGizmos.gizmo_default_color) -> void:
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	EditorImmediateGizmos.draw_arc_2d(center, Vector2.UP * radius, TAU);
 	EditorImmediateGizmos.end_draw_2d(color);
 	
 static func line_capsule(center : Vector2, radius : float, height : float, color : Color = EditorImmediateGizmos.gizmo_default_color) -> void:
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	height -= radius * 2;
 	if (height < 0):
 		return line_circle(center, radius, color);
@@ -59,6 +65,7 @@ static func line_capsule(center : Vector2, radius : float, height : float, color
 	EditorImmediateGizmos.end_draw_2d(color);
 	
 static func line_rect(center : Vector2, size : Vector2, color : Color = EditorImmediateGizmos.gizmo_default_color) -> void:
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	var tl := center + (Vector2(-1, -1) * size);
 	var tr := center + (Vector2(1, -1) * size);
 	var bl := center + (Vector2(-1, 1) * size);
@@ -71,11 +78,13 @@ static func line_rect(center : Vector2, size : Vector2, color : Color = EditorIm
 	EditorImmediateGizmos.end_draw_2d(color);
 	
 static func line_square(center : Vector2, size : float, color : Color = EditorImmediateGizmos.gizmo_default_color) -> void:
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	line_rect(center, Vector2.ONE * size, color);
 
 ##########################################################################
 
 static func draw_text(text : String, position : Vector2, hAlign : HorizontalAlignment = HORIZONTAL_ALIGNMENT_LEFT, vAlign : VerticalAlignment = VERTICAL_ALIGNMENT_BOTTOM, height : float = 0.25):
+	if !EditorImmediateGizmos.is_plugin_enabled(): return;
 	EditorImmediateGizmos.draw_text_2d(text, position, hAlign, vAlign, height);
 
 ##########################################################################
